@@ -20,10 +20,44 @@ function clearAll() {
   heldValue = null;
   heldOperation = null;
   nextValue = null;
+  $(".next-operation").text("");
 }
 
 function clearEntry() {
   nextValue = null;
+}
+
+function setHeldOperation(operation) {
+  if (heldOperation) {
+    heldValue = heldOperation(heldValue, nextValue);
+  } else if (nextValue !== null && heldOperation === null) {
+    heldValue = nextValue;
+  }
+
+  nextValue = null;
+  heldOperation = operation;
+}
+
+function add(x, y) {
+  return Number(x) + Number(y);
+}
+
+function subtract(x, y) {
+  return Number(x) - Number(y);
+}
+
+function multiply(x, y) {
+  return Number(x) * Number(y);
+}
+
+function divide(x, y) {
+  return Number(x) / Number(y);
+}
+
+function equals() {
+  setHeldOperation(null);
+  $(".next-operation").text("");
+  updateDisplay();
 }
 
 $(".digits button").click(function () {
@@ -31,29 +65,36 @@ $(".digits button").click(function () {
     nextValue = "0";
   }
   nextValue += $(this).text();
-  console.log(nextValue);
 
   updateDisplay();
 });
 
 $(".add").click(function () {
-  console.log("add");
+  setHeldOperation(add);
+  $(".next-operation").text("+");
+  updateDisplay();
 });
 
 $(".subtract").click(function () {
-  console.log("subtract");
+  setHeldOperation(subtract);
+  $(".next-operation").text("-");
+  updateDisplay();
 });
 
 $(".multiply").click(function () {
-  console.log("mult");
+  setHeldOperation(multiply);
+  $(".next-operation").text("*");
+  updateDisplay();
 });
 
 $(".divide").click(function () {
-  console.log("divide");
+  setHeldOperation(divide);
+  $(".next-operation").text("/");
+  updateDisplay();
 });
 
 $(".equals").click(function () {
-  console.log(" equals");
+  equals();
 });
 
 $(".clear-all").click(function () {

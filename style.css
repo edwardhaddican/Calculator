@@ -1,3 +1,10 @@
+/* below, we define a CSS variable, "gap", on the root element, so it can be used anywhere in the styles.
+    CSS variables are a great way to store a value that will be used in many places, and make the value easily changable. 
+*/
+:root {
+  --gap: 12px;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -25,81 +32,137 @@ html {
   margin-bottom: 8px;
 }
 
-.calculator{
-  background-color: rgba(211, 211, 211, 0.473);
-  padding: .75rem;
-  border: 2px solid black
+.calculator {
+  display: grid;
+
+  border: 2px solid yellow;
+  border-radius: 12px;
+  overflow: hidden;
+  padding: 24px 18px 18px;
+  background: #999;
+
+  width: 480px;
+  height: 700px;
+
+  box-shadow: 5px 5px 12px -6px black;
+
+  grid-template-rows: 180px 1fr;
 }
 
-.display{
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr;
-  background-color: rgb(83, 93, 228);
-  border: 3px solid yellow;
-  border-radius: 15px;
-  padding: .5rem;
+.calculator button {
+  font-family: "Coda", cursive;
+  font-size: 4vh;
+  font-weight: 900;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 5px 5px 8px -4px black, 0 0 6px -3px #f00;
 }
 
-.controls{
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+.memory button {
+  background: #ff2;
+  font-size: 1em;
 }
 
-.memory{
-  display: grid;
-  grid-column: 1/4;
+.operations button {
+  background: #fb2;
+}
+
+button.equals {
+  background: #f55;
+}
+
+.digits button {
+  background: #fff;
+}
+
+.display {
+  background: #88f;
+  padding: 5px 8px;
+
   grid-row: 1;
+
+  border: 2px solid yellow;
+  border-radius: 12px;
+  box-shadow: inset 2px 2px 12px -6px black, inset -2px -2px 12px -6px black;
+
+  height: 160px;
+
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: 40px 50px 60px;
+}
+
+.held-label {
+  grid-row: 1;
+  grid-column: 1 / 6;
+  font-size: 30px;
+  color: rgba(0, 0, 0, 0.7);
+  text-decoration: underline;
+}
+
+.held-value {
+  grid-row: 2;
+  grid-column: 1 / 6;
+  font-size: 36px;
+}
+
+.next-operation {
+  font-size: 42px;
+  grid-row: 3;
+  grid-column: 1;
+
+  color: #fb6;
+  font-weight: bold;
+}
+
+.next-value {
+  font-size: 48px;
+  grid-row: 3;
+  grid-column: 2 / 6;
+  text-align: right;
+}
+
+.controls {
+  grid-row: 2;
+
+  display: grid;
+/* we use the css varaible's value below */
+  grid-gap: var(--gap);
+
+  grid-template-rows: repeat(5, 1fr);
+  grid-template-columns: repeat(4, 1fr);
+}
+
+
+.memory {
+  grid-column: 1 / 4;
+  grid-row: 1;
+
+  display: grid;
+  grid-gap:  var(--gap);
+
   grid-template-columns: 2fr 3fr;
 }
 
-.operations{
+.operations {
+  grid-column: 4 / 5;
+  grid-row: 1 / 6;
+
   display: grid;
-  grid-column: 4/5;
-  grid-row: 1/6;
-  grid-template-rows: auto;
+  grid-gap:  var(--gap);
+  grid-template-rows: repeat(5, 1fr);
 }
 
-.digits{
-  display:grid;
-  grid-row: 2/6;
-  grid-column: 1/4;
-  grid-template: 1fr 1fr 1fr 1fr / 1fr 1fr 1fr;
-  
+.digits {
+  grid-column: 1 / 4;
+  grid-row: 2 / 6; 
+
+  display: grid;
+  grid-gap:  var(--gap);
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(4, 1fr);
 }
 
-.controls-buttons{
-  background-color: yellow;
-  box-shadow: 2px 2px;
-  margin-top: .2rem;
-  margin-right: .2rem;
-  height: 4rem;
-  border-radius: 10px;
-}
-
-.operation-buttons{
-  background-color: orange;
-  box-shadow: 2px 2px;
-  /* padding-bottom: .5rem; */
-  margin-top: .2rem;
-  margin-left: .2rem;
-  border: 1px solid black;
-  border-radius: 10px;
-}
-.digits-buttons{
-  background-color:lightgray;
-  border: 1px solid black;
-  box-shadow: 2px 2px;
-  margin: .2rem .2rem;
-  height: 4rem;
-  border-radius: 10px;
-}
-
-.equals{
-  background-color: red;
-}
-
-.zero{
-  grid-column: span 2; 
+.digits :last-of-type {
+  grid-column: 2 / 4;
 }
